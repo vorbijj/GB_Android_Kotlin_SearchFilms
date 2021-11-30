@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.MainFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.MainFragment">
+
+        <TextView
+            android:id="@+id/title_top_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_top_10"
+            android:textSize="@dimen/titleTextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/top_recycler_view_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item" />
+
+        <TextView
+            android:id="@+id/title_new_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_new"
+            android:textSize="@dimen/titleTextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/new_recycler_view_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item" />
+
+        <TextView
+            android:id="@+id/title_fantasy_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_fantasy"
+            android:textSize="@dimen/titleTextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fantastic_recycler_view_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

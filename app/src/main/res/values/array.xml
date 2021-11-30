@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pic_list">
+        <item>pic_1</item>
+        <item>pic_2</item>
+        <item>pic_3</item>
+        <item>pic_4</item>
+        <item>pic_5</item>
+        <item>pic_6</item>
+        <item>pic_7</item>
+        <item>pic_8</item>
+        <item>pic_9</item>
+        <item>pic_10</item>
+    </string-array>
+
+    <string-array name="name_list">
+        <item>Film_1</item>
+        <item>Film_2</item>
+        <item>Film_3</item>
+        <item>Film_4</item>
+        <item>Film_5</item>
+        <item>Film_6</item>
+        <item>Film_7</item>
+        <item>Film_8</item>
+        <item>Film_9</item>
+        <item>Film_10</item>
+    </string-array>
+
+    <string-array name="year_list">
+        <item>1998</item>
+        <item>1999</item>
+        <item>2000</item>
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+        <item>2005</item>
+        <item>2006</item>
+        <item>2007</item>
+    </string-array>
+
+    <string-array name="rating_list">
+        <item>6.7</item>
+        <item>7.0</item>
+        <item>5.5</item>
+        <item>4.5</item>
+        <item>8.1</item>
+        <item>7.6</item>
+        <item>3.0</item>
+        <item>6.3</item>
+        <item>5.8</item>
+        <item>9.0</item>
+    </string-array>
+</resources>

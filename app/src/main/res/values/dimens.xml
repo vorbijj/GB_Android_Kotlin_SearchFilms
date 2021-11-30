@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="nameText">25sp</dimen>
+    <dimen name="yearText">25sp</dimen>
+    <dimen name="ratingText">25sp</dimen>
+    <dimen name="widthImage">150dp</dimen>
+    <dimen name="heightImage">200dp</dimen>
+    <dimen name="titleTextView">25sp</dimen>
+
+</resources>
