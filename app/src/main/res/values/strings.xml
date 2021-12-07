@@ -7,4 +7,6 @@
     <string name="title_top_10">TOP-10</string>
     <string name="title_new">NEW</string>
     <string name="title_fantasy">FANTASY</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

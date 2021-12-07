@@ -1,4 +1,4 @@
-package com.gbandroid.appsearchfilms.viewmodel
+package com.gbandroid.appsearchfilms.ui
 
 import android.view.LayoutInflater
 import android.view.View

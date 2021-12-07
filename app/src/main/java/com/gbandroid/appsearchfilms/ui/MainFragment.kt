@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.data.CardsSource
 import com.gbandroid.appsearchfilms.data.CardsSourceImpl
-import com.gbandroid.appsearchfilms.viewmodel.FilmAdapter
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -59,10 +59,15 @@ class MainFragment : Fragment() {
 
         adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener{
             override fun onItemClick(view: View?, position: Int) {
-                Toast.makeText(
-                    context, "Yeap!!!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val fragmentManager = requireActivity().supportFragmentManager
+                val currentFragment = fragmentManager.findFragmentById(R.id.container)
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                if (currentFragment != null) {
+                    fragmentTransaction.remove(currentFragment)
+                }
+                fragmentTransaction.add(R.id.container, DescriptionFragment.newInstance())
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
             }
         })
     }
