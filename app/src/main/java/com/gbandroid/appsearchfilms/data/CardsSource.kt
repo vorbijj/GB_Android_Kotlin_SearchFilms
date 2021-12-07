@@ -1,7 +1,7 @@
 package com.gbandroid.appsearchfilms.data
 
 interface CardsSource {
-    fun getCardData(position: Int): CardData
+    fun getCardFilm(position: Int): CardFilm
     fun size(): Int
 
 }

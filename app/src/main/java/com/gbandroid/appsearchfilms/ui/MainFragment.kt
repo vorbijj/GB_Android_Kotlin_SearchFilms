@@ -32,7 +32,7 @@ class MainFragment : Fragment() {
         val topRecyclerView = view.findViewById<RecyclerView>(R.id.top_recycler_view_line)
         val newRecyclerView = view.findViewById<RecyclerView>(R.id.new_recycler_view_line)
         val fantasyRecyclerView = view.findViewById<RecyclerView>(R.id.fantastic_recycler_view_line)
-        val data: CardsSource = CardsSourceImpl(resources).init()
+        val data: CardsSource = CardsSourceImpl()
         initRecyclerView(topRecyclerView, data)
         initRecyclerView(newRecyclerView, data)
         initRecyclerView(fantasyRecyclerView, data)
@@ -45,7 +45,7 @@ class MainFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
-    fun initRecyclerView(recyclerView: RecyclerView, data: CardsSource) {
+    private fun initRecyclerView(recyclerView: RecyclerView, data: CardsSource) {
         recyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.layoutManager = layoutManager
