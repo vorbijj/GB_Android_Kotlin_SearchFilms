@@ -1,15 +1,16 @@
 package com.gbandroid.appsearchfilms.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.data.CardFilm
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.fragment_description.*
 
 class DescriptionFragment : Fragment() {
 
@@ -24,13 +25,21 @@ class DescriptionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_description, container, false)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         initUi()
         return view
     }
 
+
     private fun initUi() {
-        val nameView: TextView = requireView().findViewById(R.id.name_text_view)
-        nameView.text = viewModel.CardLiveData.value?.name ?: "Тут пока пусто"
+        val nameObserver = Observer<CardFilm> { cardFilm ->
+            cover_description_image_view.setImageResource(R.drawable.ic_baseline_camera_75)
+            name_description_text_view.text = cardFilm.name
+            year_description_text_view.text = cardFilm.year
+            rating_description_text_view.text = cardFilm.rating
+        }
+
+        viewModel.getCurrentCard().observe(viewLifecycleOwner, nameObserver)
+
     }
 }

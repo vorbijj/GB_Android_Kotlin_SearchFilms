@@ -50,7 +50,7 @@ class FilmAdapter(private val dataSource: CardsSource) :
 
         init {
             image = itemView.findViewById(R.id.cover_image_view)
-            name = itemView.findViewById(R.id.name_text_view)
+            name = itemView.findViewById(R.id.name_description_text_view)
             year = itemView.findViewById(R.id.year_text_view)
             rating = itemView.findViewById(R.id.rating_text_view)
             image.setOnClickListener { v ->

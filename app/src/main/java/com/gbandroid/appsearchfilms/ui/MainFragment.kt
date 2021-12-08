@@ -28,7 +28,8 @@ class MainFragment : Fragment() {
         val topRecyclerView = view.findViewById<RecyclerView>(R.id.top_recycler_view_line)
         val newRecyclerView = view.findViewById<RecyclerView>(R.id.new_recycler_view_line)
         val fantasyRecyclerView = view.findViewById<RecyclerView>(R.id.fantastic_recycler_view_line)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
         initRecyclerView(topRecyclerView)
         initRecyclerView(newRecyclerView)
         initRecyclerView(fantasyRecyclerView)

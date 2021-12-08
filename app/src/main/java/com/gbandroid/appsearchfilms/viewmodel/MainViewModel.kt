@@ -15,7 +15,11 @@ class MainViewModel : ViewModel() {
 
     fun setCurrentCard(position: Int) {
         val card = CardsSourceImpl().getCardFilm(position)
-        val cardFilm = CardFilm(card.picture, card.name, card.year, card.rating)
-        CardLiveData.postValue(card)
+        val CurrentCardFilm = CardFilm(card.picture, card.name, card.year, card.rating)
+        CardLiveData.postValue(CurrentCardFilm)
+    }
+
+    fun getCurrentCard(): MutableLiveData<CardFilm> {
+        return CardLiveData
     }
 }
