@@ -1,4 +1,4 @@
-package com.gbandroid.appsearchfilms.viewmodel
+package com.gbandroid.appsearchfilms.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.gbandroid.appsearchfilms.R
-import com.gbandroid.appsearchfilms.data.CardData
+import com.gbandroid.appsearchfilms.data.CardFilm
 import com.gbandroid.appsearchfilms.data.CardsSource
 
 class FilmAdapter(private val dataSource: CardsSource) :
@@ -20,7 +20,7 @@ class FilmAdapter(private val dataSource: CardsSource) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.setData(dataSource.getCardData(position))
+        viewHolder.setData(dataSource.getCardFilm(position))
     }
 
     override fun getItemCount(): Int {
@@ -41,16 +41,16 @@ class FilmAdapter(private val dataSource: CardsSource) :
         private val year: TextView
         private val rating: TextView
 
-        fun setData(cardData: CardData) {
+        fun setData(cardFilm: CardFilm) {
             image.setImageResource(R.drawable.ic_baseline_camera_75)
-            name.text = cardData.name
-            year.text = cardData.year
-            rating.text = cardData.rating
+            name.text = cardFilm.name
+            year.text = cardFilm.year
+            rating.text = cardFilm.rating
         }
 
         init {
             image = itemView.findViewById(R.id.cover_image_view)
-            name = itemView.findViewById(R.id.name_text_view)
+            name = itemView.findViewById(R.id.name_description_text_view)
             year = itemView.findViewById(R.id.year_text_view)
             rating = itemView.findViewById(R.id.rating_text_view)
             image.setOnClickListener { v ->

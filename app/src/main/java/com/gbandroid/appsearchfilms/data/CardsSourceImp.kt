@@ -1,40 +1,24 @@
 package com.gbandroid.appsearchfilms.data
 
-import android.content.res.Resources
-import com.gbandroid.appsearchfilms.R
-import java.util.*
-
-class CardsSourceImpl(resources: Resources) : CardsSource {
-    private val dataSource: MutableList<CardData>
-    private val resources: Resources
+class CardsSourceImpl() : CardsSource {
+    private val dataSource: MutableList<CardFilm>
 
     init {
-        dataSource = ArrayList(10)
-        this.resources = resources
+        dataSource = mutableListOf(
+            CardFilm("pic_1", "Film_1", "1998", "6.7"),
+            CardFilm("pic_2", "Film_2", "1999", "7.0"),
+            CardFilm("pic_3", "Film_3", "2000", "5.5"),
+            CardFilm("pic_4", "Film_4", "2001", "4.5"),
+            CardFilm("pic_5", "Film_5", "2002", "8.1"),
+            CardFilm("pic_6", "Film_6", "2003", "7.6"),
+            CardFilm("pic_7", "Film_7", "2004", "3.0"),
+            CardFilm("pic_8", "Film_8", "2005", "6.3"),
+            CardFilm("pic_9", "Film_9", "2006", "5.8"),
+            CardFilm("pic_10", "Film_10", "2007", "9.0"),
+        )
     }
 
-    fun init(): CardsSourceImpl {
-        val picture: IntArray = getImageArray()
-        val name = resources.getStringArray(R.array.name_list)
-        val year = resources.getStringArray(R.array.year_list)
-        val rating = resources.getStringArray(R.array.rating_list)
-        for (i in name.indices) {
-            dataSource.add(CardData(picture[i], name[i], year[i], rating[i]))
-        }
-        return this
-    }
-
-    private fun getImageArray(): IntArray {
-        val pictures = resources.obtainTypedArray(R.array.pic_list)
-        val length = pictures.length()
-        val answer = IntArray(length)
-        for (i in answer.indices) {
-            answer[i] = pictures.getResourceId(i, 0)
-        }
-        return answer
-    }
-
-    override fun getCardData(position: Int): CardData {
+    override fun getCardFilm(position: Int): CardFilm {
         return dataSource[position]
     }
 
