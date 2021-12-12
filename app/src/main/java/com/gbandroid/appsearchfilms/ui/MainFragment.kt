@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gbandroid.appsearchfilms.R
+import com.gbandroid.appsearchfilms.databinding.FragmentMainBinding
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -18,33 +19,37 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(requireActivity())[MainViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_main, container, false)
-        val topRecyclerView = view.findViewById<RecyclerView>(R.id.top_recycler_view_line)
-        val newRecyclerView = view.findViewById<RecyclerView>(R.id.new_recycler_view_line)
-        val fantasyRecyclerView = view.findViewById<RecyclerView>(R.id.fantastic_recycler_view_line)
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        _binding = FragmentMainBinding.inflate(
+            inflater, container, false
+        )
 
-        initRecyclerView(topRecyclerView)
-        initRecyclerView(newRecyclerView)
-        initRecyclerView(fantasyRecyclerView)
+        initRecyclerView(binding.topRecyclerViewLine)
+        initRecyclerView(binding.newRecyclerViewLine)
+        initRecyclerView(binding.fantasticRecyclerViewLine)
 
-        return view
+        return binding.root
     }
 
 
     private fun initRecyclerView(recyclerView: RecyclerView) {
-        val dataSource = viewModel.getCardsSource()
         recyclerView.setHasFixedSize(true)
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL, false
+        )
 
-        val adapter = FilmAdapter(dataSource)
+        val adapter = FilmAdapter(viewModel.getCardsSource())
         recyclerView.adapter = adapter
 
         val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
@@ -65,5 +70,10 @@ class MainFragment : Fragment() {
                 fragmentTransaction.commit()
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

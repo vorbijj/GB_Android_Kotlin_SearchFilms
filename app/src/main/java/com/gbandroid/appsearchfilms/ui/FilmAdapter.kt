@@ -23,9 +23,7 @@ class FilmAdapter(private val dataSource: CardsSource) :
         viewHolder.setData(dataSource.getCardFilm(position))
     }
 
-    override fun getItemCount(): Int {
-        return dataSource.size()
-    }
+    override fun getItemCount() = dataSource.size()
 
     fun setOnItemClickListener(itemClickListener: OnItemClickListener?) {
         this.itemClickListener = itemClickListener

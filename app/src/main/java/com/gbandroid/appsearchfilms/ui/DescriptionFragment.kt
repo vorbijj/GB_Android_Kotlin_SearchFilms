@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.data.CardFilm
+import com.gbandroid.appsearchfilms.databinding.FragmentDescriptionBinding
+import com.gbandroid.appsearchfilms.databinding.FragmentMainBinding
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_description.*
 
@@ -18,18 +20,23 @@ class DescriptionFragment : Fragment() {
         fun newInstance() = DescriptionFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private var _binding: FragmentDescriptionBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_description, container, false)
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+    ): View {
+        _binding = FragmentDescriptionBinding.inflate(
+            inflater, container, false
+        )
         initUi()
-        return view
+        return binding.root
     }
-
 
     private fun initUi() {
         val nameObserver = Observer<CardFilm> { cardFilm ->
@@ -41,5 +48,10 @@ class DescriptionFragment : Fragment() {
 
         viewModel.getCurrentCard().observe(viewLifecycleOwner, nameObserver)
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
