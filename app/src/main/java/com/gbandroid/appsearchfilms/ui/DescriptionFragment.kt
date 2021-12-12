@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.data.CardFilm
 import com.gbandroid.appsearchfilms.databinding.FragmentDescriptionBinding
-import com.gbandroid.appsearchfilms.databinding.FragmentMainBinding
+import com.gbandroid.appsearchfilms.util.showSnackBar
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_description.*
 
@@ -48,6 +48,11 @@ class DescriptionFragment : Fragment() {
 
         viewModel.getCurrentCard().observe(viewLifecycleOwner, nameObserver)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.root.showSnackBar("Фрагмент находится в разработке")
     }
 
     override fun onDestroyView() {
