@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.DescriptionFragment">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/cover_description_image_view"
-        android:layout_width="@dimen/widthImage"
-        android:layout_height="@dimen/heightImage"
-        android:background="@color/very_light_purple_blue"
-        android:contentDescription="@string/image"
-        android:scaleType="center" />
-
-    <TextView
-        android:id="@+id/name_description_text_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/nameText"
-        tools:text="Name" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.DescriptionFragment">
 
-    <TextView
-        android:id="@+id/year_description_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/nameText"
-        tools:text="Year" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cover_description_image_view"
+            android:layout_width="@dimen/widthImage"
+            android:layout_height="@dimen/heightImage"
+            android:background="@color/very_light_purple_blue"
+            android:contentDescription="@string/image"
+            android:scaleType="center" />
 
-    <TextView
-        android:id="@+id/rating_description_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/nameText"
-        tools:text="Rating" />
+        <TextView
+            android:id="@+id/name_description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/nameText"
+            tools:text="Name" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/year_description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/nameText"
+            tools:text="Year" />
+
+        <TextView
+            android:id="@+id/rating_description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/nameText"
+            tools:text="Rating" />
+
+        <TextView
+            android:id="@+id/desc_description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/nameText"
+            tools:text="Description" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
