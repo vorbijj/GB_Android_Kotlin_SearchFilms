@@ -3,13 +3,12 @@ package com.gbandroid.appsearchfilms
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import com.gbandroid.appsearchfilms.databinding.ActivityMainBinding
-
 import com.gbandroid.appsearchfilms.ui.MainFragment
+import com.gbandroid.appsearchfilms.util.showSnackBar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,17 +34,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sort -> {
-                Toast.makeText(
-                    this@MainActivity, getString(R.string.sort),
-                    Toast.LENGTH_SHORT
-                ).show()
+                binding.root.showSnackBar(getString(R.string.sort))
                 true
             }
             R.id.action_favorite -> {
-                Toast.makeText(
-                    this@MainActivity, getString(R.string.favorite),
-                    Toast.LENGTH_SHORT
-                ).show()
+                binding.root.showSnackBar(getString(R.string.favorite))
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -59,10 +52,7 @@ class MainActivity : AppCompatActivity() {
         val searchText = search.actionView as SearchView
         searchText.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                Toast.makeText(
-                    this@MainActivity, query,
-                    Toast.LENGTH_SHORT
-                ).show()
+                binding.root.showSnackBar(query)
                 return true
             }
 

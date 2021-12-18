@@ -3,15 +3,12 @@ package com.gbandroid.appsearchfilms.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gbandroid.appsearchfilms.data.CardFilm
-import com.gbandroid.appsearchfilms.data.CardsSource
 import com.gbandroid.appsearchfilms.data.CardsSourceImpl
 
 class MainViewModel : ViewModel() {
     val CardLiveData = MutableLiveData<CardFilm>()
 
-    fun getCardsSource(): CardsSource{
-        return CardsSourceImpl()
-    }
+    fun getCardsSource() = CardsSourceImpl()
 
     fun setCurrentCard(position: Int) {
         val card = CardsSourceImpl().getCardFilm(position)
@@ -19,7 +16,5 @@ class MainViewModel : ViewModel() {
         CardLiveData.postValue(CurrentCardFilm)
     }
 
-    fun getCurrentCard(): MutableLiveData<CardFilm> {
-        return CardLiveData
-    }
+    fun getCurrentCard() = CardLiveData
 }

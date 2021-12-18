@@ -18,11 +18,7 @@ class CardsSourceImpl() : CardsSource {
         )
     }
 
-    override fun getCardFilm(position: Int): CardFilm {
-        return dataSource[position]
-    }
+    override fun getCardFilm(position: Int) = dataSource[position]
 
-    override fun size(): Int {
-        return dataSource.size
-    }
+    override fun size() = dataSource.size
 }
