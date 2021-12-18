@@ -2,7 +2,7 @@ package com.gbandroid.appsearchfilms.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gbandroid.appsearchfilms.data.CardsSourceImpl
+import com.gbandroid.appsearchfilms.domain.CardsSourceImpl
 import com.gbandroid.appsearchfilms.data.WebFilmRepoCaseImpl
 import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoCase
 import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoEntity

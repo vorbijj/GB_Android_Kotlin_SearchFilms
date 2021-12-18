@@ -1,4 +1,4 @@
-package com.gbandroid.appsearchfilms.data
+package com.gbandroid.appsearchfilms.domain
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

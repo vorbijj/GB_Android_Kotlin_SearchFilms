@@ -1,4 +1,4 @@
-package com.gbandroid.appsearchfilms.data
+package com.gbandroid.appsearchfilms.domain
 
 class CardsSourceImpl() : CardsSource {
     private val dataSource: MutableList<CardFilm>

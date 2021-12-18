@@ -1,4 +1,4 @@
-package com.gbandroid.appsearchfilms
+package com.gbandroid.appsearchfilms.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,8 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.databinding.ActivityMainBinding
-import com.gbandroid.appsearchfilms.ui.MainFragment
 import com.gbandroid.appsearchfilms.util.showSnackBar
 
 class MainActivity : AppCompatActivity() {
