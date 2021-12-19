@@ -14,7 +14,7 @@ class CardsSourceImpl() : CardsSource {
             CardFilm("pic_7", "Film_7", "2021", "##", 568124L),
             CardFilm("pic_8", "Film_8", "2021", "##", 617653L),
             CardFilm("pic_9", "Film_9", "2021", "##", 614917L),
-            CardFilm("pic_10", "Film_10", "2021", "##", 824184L),
+            CardFilm("pic_10", "Film_10", "2021", "##", 8241008784L)
         )
     }
 
