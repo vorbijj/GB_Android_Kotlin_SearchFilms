@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.databinding.FragmentDescriptionBinding
 import com.gbandroid.appsearchfilms.util.showSnackBar
@@ -45,13 +46,13 @@ class DescriptionFragment : Fragment() {
                 binding.root.showSnackBar("Attention!!!\n $onError")
                 binding.commonDescriptionLinearLayout.isVisible = false
             } else {
-                val cardFilm = viewModel.getCurrentCard().value!!
+                val cardFilmEntity = viewModel.getCurrentCard().value!!
 
-                cover_description_image_view.setImageResource(R.drawable.ic_baseline_camera_75)
-                name_description_text_view.text = cardFilm.title
-                year_description_text_view.text = cardFilm.getYear()
-                rating_description_text_view.text = cardFilm.voteAverage.toString()
-                desc_description_text_view.text = cardFilm.overview
+                setImageOnView(cardFilmEntity.getImageUrl())
+                name_description_text_view.text = cardFilmEntity.title
+                year_description_text_view.text = cardFilmEntity.getYear()
+                rating_description_text_view.text = cardFilmEntity.voteAverage.toString()
+                desc_description_text_view.text = cardFilmEntity.overview
 
                 binding.commonDescriptionLinearLayout.isVisible = true
 
@@ -61,6 +62,13 @@ class DescriptionFragment : Fragment() {
 
         viewModel.validationErrorLiveData.observe(viewLifecycleOwner, observerCurrent)
 
+    }
+
+    private fun setImageOnView(imageUrl: String) {
+        Glide.with(this)
+            .load(imageUrl)
+            .placeholder(R.drawable.ic_baseline_camera_75)
+            .into(binding.coverDescriptionImageView)
     }
 
     override fun onDestroyView() {

@@ -2,6 +2,8 @@ package com.gbandroid.appsearchfilms.domain
 
 import com.google.gson.annotations.SerializedName
 
+private const val IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+
 data class TheMovieDBRepoEntity(
     @SerializedName("title")
     val title: String,
@@ -14,7 +16,11 @@ data class TheMovieDBRepoEntity(
     @SerializedName("vote_average")
     val voteAverage: Float,
     @SerializedName("id")
-    val id: Long
+    val id: Long,
+    @SerializedName("poster_path")
+    val posterPath: String
 ) {
     fun getYear() = this.releaseDate.substring(0..3)
+
+    fun getImageUrl() = IMAGE_URL + this.posterPath
 }
