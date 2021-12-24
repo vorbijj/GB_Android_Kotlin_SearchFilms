@@ -50,7 +50,7 @@ class DescriptionFragment : Fragment() {
                 cover_description_image_view.setImageResource(R.drawable.ic_baseline_camera_75)
                 name_description_text_view.text = cardFilm.title
                 year_description_text_view.text = cardFilm.getYear()
-                rating_description_text_view.text = cardFilm.vote_average.toString()
+                rating_description_text_view.text = cardFilm.voteAverage.toString()
                 desc_description_text_view.text = cardFilm.overview
 
                 binding.commonDescriptionLinearLayout.isVisible = true
