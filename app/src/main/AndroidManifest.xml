@@ -11,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GB_Android_Kotlin_SearchFilms.NoActionBar">
+        <service
+            android:name=".util.MainMonitorIntentService"
+            android:exported="false"/>
+
+        <receiver
+            android:name=".util.MyConnectReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
