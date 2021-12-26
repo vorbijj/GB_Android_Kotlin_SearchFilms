@@ -51,6 +51,12 @@
             android:textSize="@dimen/nameText"
             tools:text="Description" />
 
+        <ProgressBar
+            android:id="@+id/description_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
