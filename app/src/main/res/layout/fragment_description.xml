@@ -16,10 +16,12 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/cover_description_image_view"
             android:layout_width="@dimen/widthImage"
-            android:layout_height="@dimen/heightImage"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="@color/very_light_purple_blue"
             android:contentDescription="@string/image"
-            android:scaleType="center" />
+            android:minHeight="@dimen/heightImage"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/name_description_text_view"
@@ -49,6 +51,12 @@
             android:textSize="@dimen/nameText"
             tools:text="Description" />
 
+        <ProgressBar
+            android:id="@+id/description_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -37,3 +37,9 @@ Lesson 06:
     Реализация подписки на событие изменения связи (CONNECTIVITY_ACTION),
     с помощью broadcastreceiver.
     Реализация создания файла с логами, с помощью IntentService
+
+Lesson 07:
+    Добавлена зависимость Retrofit
+    Применение библиотеки Retrofit для получения данных с сервера вместо HttpsUrlConnection
+    Загрузка изображения (обложки фильма) с помощью Glide
+    Добавлен ProgressBar при открытие DescriptionFragment
