@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.gbandroid.appsearchfilms.R
-import com.gbandroid.appsearchfilms.data.CardFilm
-import com.gbandroid.appsearchfilms.data.CardsSource
+import com.gbandroid.appsearchfilms.domain.CardFilm
+import com.gbandroid.appsearchfilms.domain.CardsSource
 
 class FilmAdapter(private val dataSource: CardsSource) :
     RecyclerView.Adapter<FilmAdapter.ViewHolder>() {

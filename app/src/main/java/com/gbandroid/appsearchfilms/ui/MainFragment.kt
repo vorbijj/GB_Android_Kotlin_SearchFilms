@@ -59,6 +59,7 @@ class MainFragment : Fragment() {
         adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
                 viewModel.setCurrentCard(position)
+                Thread.sleep(500)
                 val fragmentManager = requireActivity().supportFragmentManager
                 val currentFragment = fragmentManager.findFragmentById(R.id.container)
                 val fragmentTransaction = fragmentManager.beginTransaction()

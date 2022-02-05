@@ -1,4 +1,4 @@
-package com.gbandroid.appsearchfilms.data
+package com.gbandroid.appsearchfilms.domain
 
 interface CardsSource {
     fun getCardFilm(position: Int): CardFilm
