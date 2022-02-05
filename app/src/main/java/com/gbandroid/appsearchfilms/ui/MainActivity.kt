@@ -1,5 +1,7 @@
 package com.gbandroid.appsearchfilms.ui
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,10 +10,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.databinding.ActivityMainBinding
+import com.gbandroid.appsearchfilms.util.MyConnectReceiver
 import com.gbandroid.appsearchfilms.util.showSnackBar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val receiver = MyConnectReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         title = getString(R.string.app_title)
         initToolbar()
+        registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
@@ -63,4 +68,8 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onDestroy() {
+        unregisterReceiver(receiver)
+        super.onDestroy()
+    }
 }

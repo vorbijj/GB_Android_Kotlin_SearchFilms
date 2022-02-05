@@ -1,5 +1,6 @@
 package com.gbandroid.appsearchfilms.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.databinding.FragmentMainBinding
+import com.gbandroid.appsearchfilms.util.MAIN_SERVICE_STRING_EXTRA
+import com.gbandroid.appsearchfilms.util.MainMonitorIntentService
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainFragment : Fragment() {
 
@@ -58,8 +63,11 @@ class MainFragment : Fragment() {
 
         adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
+                launchingMonitorService()
+
                 viewModel.setCurrentCard(position)
                 Thread.sleep(500)
+
                 val fragmentManager = requireActivity().supportFragmentManager
                 val currentFragment = fragmentManager.findFragmentById(R.id.container)
                 val fragmentTransaction = fragmentManager.beginTransaction()
@@ -71,6 +79,15 @@ class MainFragment : Fragment() {
                 fragmentTransaction.commit()
             }
         })
+    }
+
+    private fun launchingMonitorService() {
+        val message = "Запуск фрагмента описания фильма"
+        val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
+        val currentDateandTime: String = sdf.format(Date())
+        val intent = Intent(requireActivity(), MainMonitorIntentService::class.java)
+        intent.putExtra(MAIN_SERVICE_STRING_EXTRA, "$currentDateandTime - $message\n")
+        requireActivity().startService(intent)
     }
 
     override fun onDestroyView() {
