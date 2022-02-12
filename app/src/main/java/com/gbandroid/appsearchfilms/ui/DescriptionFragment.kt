@@ -41,11 +41,11 @@ class DescriptionFragment : Fragment() {
     private fun initUi() {
         val observerCurrent = Observer<Boolean> { it ->
             if (it) {
-                val onError = viewModel.getOnErrorLiveData()
+                val onError = viewModel.onErrorLiveData.value
                 binding.root.showSnackBar("Attention!!!\n $onError")
                 showProgress(false, false)
             } else {
-                val cardFilmEntity = viewModel.getCurrentCard().value!!
+                val cardFilmEntity = viewModel.cardLiveData.value!!
 
                 setImageOnView(cardFilmEntity.getImageUrl())
                 name_description_text_view.text = cardFilmEntity.title

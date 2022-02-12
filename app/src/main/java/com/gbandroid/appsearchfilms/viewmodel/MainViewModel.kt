@@ -1,5 +1,6 @@
 package com.gbandroid.appsearchfilms.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gbandroid.appsearchfilms.data.RetrofitFilmRepoCaseImpl
@@ -8,9 +9,17 @@ import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoCase
 import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoEntity
 
 class MainViewModel : ViewModel() {
-    private val CardLiveData = MutableLiveData<TheMovieDBRepoEntity>()
-    private val OnErrorLiveData = MutableLiveData<String>()
-    val validationErrorLiveData = MutableLiveData<Boolean>()
+    private val _cardLiveData = MutableLiveData<TheMovieDBRepoEntity>()
+    val cardLiveData: LiveData<TheMovieDBRepoEntity>
+        get() = _cardLiveData
+
+    private val _onErrorLiveData = MutableLiveData<String>()
+    val onErrorLiveData: LiveData<String>
+        get() = _onErrorLiveData
+
+    private val _validationErrorLiveData = MutableLiveData<Boolean>()
+    val validationErrorLiveData: LiveData<Boolean>
+        get() = _validationErrorLiveData
 
     private val theMovieDBRepoCase: TheMovieDBRepoCase by lazy { RetrofitFilmRepoCaseImpl() }
 
@@ -22,16 +31,13 @@ class MainViewModel : ViewModel() {
         theMovieDBRepoCase.getReposForFilmAsync(
             card.id,
             onSuccess = { currentCardFilm ->
-                CardLiveData.postValue(currentCardFilm)
-                validationErrorLiveData.postValue(false)
+                _cardLiveData.postValue(currentCardFilm)
+                _validationErrorLiveData.postValue(false)
             },
             onError = { thr ->
-                OnErrorLiveData.postValue(thr.toString())
-                validationErrorLiveData.postValue(true)
+                _onErrorLiveData.postValue(thr.toString())
+                _validationErrorLiveData.postValue(true)
             }
         )
     }
-
-    fun getCurrentCard() = CardLiveData
-    fun getOnErrorLiveData() = OnErrorLiveData
 }
