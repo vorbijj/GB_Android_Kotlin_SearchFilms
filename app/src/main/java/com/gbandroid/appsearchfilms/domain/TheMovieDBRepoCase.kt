@@ -6,4 +6,11 @@ interface TheMovieDBRepoCase {
         onSuccess: (TheMovieDBRepoEntity) -> Unit,
         onError: (Throwable) -> Unit
     )
+
+    fun getListFilmsAsync(
+        nameFilmsKit: String,
+        onSuccess: (ListFilms) -> Unit,
+        onError: (Throwable) -> Unit
+    )
+
 }

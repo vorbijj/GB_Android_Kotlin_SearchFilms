@@ -14,9 +14,15 @@ import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.databinding.FragmentMainBinding
 import com.gbandroid.appsearchfilms.util.MAIN_SERVICE_STRING_EXTRA
 import com.gbandroid.appsearchfilms.util.MainMonitorIntentService
+import com.gbandroid.appsearchfilms.util.showSnackBar
+import com.gbandroid.appsearchfilms.viewmodel.ListFilmsKit
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+
+private const val BRACKET_LEFT = "("
+private const val BRACKET_RIGHT = ")"
+
 
 class MainFragment : Fragment() {
 
@@ -41,7 +47,7 @@ class MainFragment : Fragment() {
 
         initRecyclerView(binding.topRecyclerViewLine)
         initRecyclerView(binding.newRecyclerViewLine)
-        initRecyclerView(binding.fantasticRecyclerViewLine)
+        initRecyclerView(binding.comingSoonRecyclerViewLine)
 
         return binding.root
     }
@@ -54,31 +60,103 @@ class MainFragment : Fragment() {
             LinearLayoutManager.HORIZONTAL, false
         )
 
-        val adapter = FilmAdapter(viewModel.getCardsSource())
-        recyclerView.adapter = adapter
+        when (recyclerView) {
+            binding.topRecyclerViewLine -> {
+                viewModel.getTopListFilms()
+
+                viewModel.topValidationErrorLiveData.observe(viewLifecycleOwner) {
+                    if (it) {
+                        showErrorMsg()
+                    } else {
+                        val str = BRACKET_LEFT + viewModel.topListFilmsLiveData.value!!.size()
+                            .toString() + BRACKET_RIGHT
+                        binding.quantityTopTextView.text = str
+
+                        val adapter = FilmAdapter(viewModel.topListFilmsLiveData.value!!)
+                        recyclerView.adapter = adapter
+
+                        adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener {
+                            override fun onItemClick(view: View?, position: Int) {
+                                viewModel.setCurrentCard(position, ListFilmsKit.LIST_TOP)
+                                showCard()
+                            }
+                        })
+                    }
+                }
+            }
+
+            binding.newRecyclerViewLine -> {
+                viewModel.getNewListFilms()
+
+                viewModel.newValidationErrorLiveData.observe(viewLifecycleOwner) {
+                    if (it) {
+                        showErrorMsg()
+                    } else {
+                        val str = BRACKET_LEFT + viewModel.newListFilmsLiveData.value!!.size()
+                            .toString() + BRACKET_RIGHT
+                        binding.quantityNewTextView.text = str
+
+                        val adapter = FilmAdapter(viewModel.newListFilmsLiveData.value!!)
+                        recyclerView.adapter = adapter
+
+                        adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener {
+                            override fun onItemClick(view: View?, position: Int) {
+                                viewModel.setCurrentCard(position, ListFilmsKit.LIST_NEW)
+                                showCard()
+                            }
+                        })
+                    }
+                }
+            }
+
+            binding.comingSoonRecyclerViewLine -> {
+                viewModel.getComingSoonListFilms()
+
+                viewModel.comingSoonValidationErrorLiveData.observe(viewLifecycleOwner) {
+                    if (it) {
+                        showErrorMsg()
+                    } else {
+                        val str =
+                            BRACKET_LEFT + viewModel.comingSoonListFilmsLiveData.value!!.size()
+                                .toString() + BRACKET_RIGHT
+                        binding.quantityComingSoonTextView.text = str
+
+                        val adapter = FilmAdapter(viewModel.comingSoonListFilmsLiveData.value!!)
+                        recyclerView.adapter = adapter
+
+                        adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener {
+                            override fun onItemClick(view: View?, position: Int) {
+                                viewModel.setCurrentCard(position, ListFilmsKit.LIST_COMING_SOON)
+                                showCard()
+                            }
+                        })
+                    }
+                }
+            }
+        }
 
         val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
         itemDecoration.setDrawable(resources.getDrawable(R.drawable.separator))
         recyclerView.addItemDecoration(itemDecoration)
+    }
 
-        adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener {
-            override fun onItemClick(view: View?, position: Int) {
-                launchingMonitorService()
+    private fun showErrorMsg() {
+        val onError = viewModel.onErrorLiveData.value
+        binding.root.showSnackBar("Attention!!!\n $onError")
+    }
 
-                viewModel.setCurrentCard(position)
-                Thread.sleep(500)
+    private fun showCard() {
+        launchingMonitorService()
 
-                val fragmentManager = requireActivity().supportFragmentManager
-                val currentFragment = fragmentManager.findFragmentById(R.id.container)
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                if (currentFragment != null) {
-                    fragmentTransaction.remove(currentFragment)
-                }
-                fragmentTransaction.add(R.id.container, DescriptionFragment.newInstance())
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()
-            }
-        })
+        val fragmentManager = requireActivity().supportFragmentManager
+        val currentFragment = fragmentManager.findFragmentById(R.id.container)
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        if (currentFragment != null) {
+            fragmentTransaction.remove(currentFragment)
+        }
+        fragmentTransaction.add(R.id.container, DescriptionFragment.newInstance())
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     private fun launchingMonitorService() {

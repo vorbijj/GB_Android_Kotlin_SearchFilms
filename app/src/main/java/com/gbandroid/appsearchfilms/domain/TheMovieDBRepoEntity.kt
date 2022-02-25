@@ -24,3 +24,10 @@ data class TheMovieDBRepoEntity(
 
     fun getImageUrl() = IMAGE_URL + this.posterPath
 }
+
+data class ListFilms(
+    @SerializedName("results")
+    val results: ArrayList<TheMovieDBRepoEntity>
+) {
+    fun size() = results.size
+}

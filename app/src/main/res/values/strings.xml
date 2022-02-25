@@ -4,8 +4,12 @@
     <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="sort">Sort</string>
-    <string name="title_top_10">TOP-10</string>
-    <string name="title_new">NEW</string>
-    <string name="title_fantasy">FANTASY</string>
+    <string name="title_top_10">TOP-10\u0020</string>
+    <string name="title_new">NEW\u0020</string>
+    <string name="title_coming_soon">COMING SOON\u0020</string>
+    <string name="title_fantasy">FANTASY\u0020</string>
+    <string name="quantity">()</string>
     <string name="image">image</string>
+    <string name="bracket_left">(</string>
+    <string name="bracket_right">)</string>
 </resources>

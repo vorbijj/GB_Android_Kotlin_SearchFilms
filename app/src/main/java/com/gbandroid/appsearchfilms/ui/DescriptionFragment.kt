@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.gbandroid.appsearchfilms.databinding.FragmentDescriptionBinding
+import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoEntity
 import com.gbandroid.appsearchfilms.util.showSnackBar
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_description.*
@@ -39,27 +40,21 @@ class DescriptionFragment : Fragment() {
     }
 
     private fun initUi() {
-        val observerCurrent = Observer<Boolean> { it ->
-            if (it) {
-                val onError = viewModel.onErrorLiveData.value
-                binding.root.showSnackBar("Attention!!!\n $onError")
-                showProgress(false, false)
-            } else {
-                val cardFilmEntity = viewModel.cardLiveData.value!!
+        val observerCurrent = Observer<TheMovieDBRepoEntity> { it ->
+            val cardFilmEntity = viewModel.cardLiveData.value!!
 
-                setImageOnView(cardFilmEntity.getImageUrl())
-                name_description_text_view.text = cardFilmEntity.title
-                year_description_text_view.text = cardFilmEntity.getYear()
-                rating_description_text_view.text = cardFilmEntity.voteAverage.toString()
-                desc_description_text_view.text = cardFilmEntity.overview
+            setImageOnView(cardFilmEntity.getImageUrl())
+            name_description_text_view.text = cardFilmEntity.title
+            year_description_text_view.text = cardFilmEntity.getYear()
+            rating_description_text_view.text = cardFilmEntity.voteAverage.toString()
+            desc_description_text_view.text = cardFilmEntity.overview
 
-                showProgress(false, true)
+            showProgress(false, true)
 
-                binding.root.showSnackBar("Фрагмент находится в разработке")
-            }
+            binding.root.showSnackBar("Фрагмент находится в разработке")
         }
 
-        viewModel.validationErrorLiveData.observe(viewLifecycleOwner, observerCurrent)
+        viewModel.cardLiveData.observe(viewLifecycleOwner, observerCurrent)
 
     }
 
