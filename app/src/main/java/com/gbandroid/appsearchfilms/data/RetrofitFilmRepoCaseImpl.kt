@@ -15,6 +15,8 @@ private const val BASE_URL = "https://api.themoviedb.org/"
 private const val API_STR = BuildConfig.FILM_API_KEY
 private const val LANG_SELECTION = "ru"
 private const val NUMBER_PAGES = 1
+private const val SORT_BY = "popularity.desc"
+private const val ADULT = false
 
 class RetrofitFilmRepoCaseImpl : TheMovieDBRepoCase {
 
@@ -55,6 +57,30 @@ class RetrofitFilmRepoCaseImpl : TheMovieDBRepoCase {
         onError: (Throwable) -> Unit
     ) {
         api.loadListFilms(nameFilmsKit, API_STR, LANG_SELECTION, NUMBER_PAGES)
+            .enqueue(object : Callback<ListFilms> {
+                override fun onResponse(
+                    call: Call<ListFilms>,
+                    response: Response<ListFilms>
+                ) {
+                    if (response.isSuccessful) {
+                        onSuccess(response.body() ?: throw IllegalStateException("null result"))
+                    } else {
+                        onError(Throwable("unknown error"))
+                    }
+                }
+
+                override fun onFailure(call: Call<ListFilms>, t: Throwable) {
+                    onError(t)
+                }
+            })
+    }
+
+    override fun getGenreListFilmsAsync(
+        genre: String,
+        onSuccess: (ListFilms) -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
+        api.loadGenreFilms(API_STR, LANG_SELECTION, SORT_BY, ADULT, NUMBER_PAGES, genre)
             .enqueue(object : Callback<ListFilms> {
                 override fun onResponse(
                     call: Call<ListFilms>,

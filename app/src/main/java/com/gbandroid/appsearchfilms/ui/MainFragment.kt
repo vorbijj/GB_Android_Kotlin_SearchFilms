@@ -48,6 +48,8 @@ class MainFragment : Fragment() {
         initRecyclerView(binding.topRecyclerViewLine)
         initRecyclerView(binding.newRecyclerViewLine)
         initRecyclerView(binding.comingSoonRecyclerViewLine)
+        initRecyclerView(binding.fantasyRecyclerViewLine)
+        initRecyclerView(binding.dramaRecyclerViewLine)
 
         return binding.root
     }
@@ -132,6 +134,56 @@ class MainFragment : Fragment() {
                         })
                     }
                 }
+            }
+
+            binding.fantasyRecyclerViewLine -> {
+                viewModel.getFantasyListFilms()
+
+                viewModel.fantasyValidationErrorLiveData.observe(viewLifecycleOwner) {
+                    if (it) {
+                        showErrorMsg()
+                    } else {
+                        val str = BRACKET_LEFT + viewModel.fantasyListFilmsLiveData.value!!.size()
+                            .toString() + BRACKET_RIGHT
+                        binding.quantityFantasyTextView.text = str
+
+                        val adapter = FilmAdapter(viewModel.fantasyListFilmsLiveData.value!!)
+                        recyclerView.adapter = adapter
+
+                        adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener {
+                            override fun onItemClick(view: View?, position: Int) {
+                                viewModel.setCurrentCard(position, ListFilmsKit.LIST_FANTASY)
+                                showCard()
+                            }
+                        })
+                    }
+                }
+
+            }
+
+            binding.dramaRecyclerViewLine -> {
+                viewModel.getDramaListFilms()
+
+                viewModel.dramaValidationErrorLiveData.observe(viewLifecycleOwner) {
+                    if (it) {
+                        showErrorMsg()
+                    } else {
+                        val str = BRACKET_LEFT + viewModel.dramaListFilmsLiveData.value!!.size()
+                            .toString() + BRACKET_RIGHT
+                        binding.quantityDramaTextView.text = str
+
+                        val adapter = FilmAdapter(viewModel.dramaListFilmsLiveData.value!!)
+                        recyclerView.adapter = adapter
+
+                        adapter.setOnItemClickListener(object : FilmAdapter.OnItemClickListener {
+                            override fun onItemClick(view: View?, position: Int) {
+                                viewModel.setCurrentCard(position, ListFilmsKit.LIST_DRAMA)
+                                showCard()
+                            }
+                        })
+                    }
+                }
+
             }
         }
 

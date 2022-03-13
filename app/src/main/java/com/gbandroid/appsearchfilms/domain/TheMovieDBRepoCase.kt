@@ -13,4 +13,10 @@ interface TheMovieDBRepoCase {
         onError: (Throwable) -> Unit
     )
 
+    fun getGenreListFilmsAsync(
+        genre: String,
+        onSuccess: (ListFilms) -> Unit,
+        onError: (Throwable) -> Unit
+    )
+
 }

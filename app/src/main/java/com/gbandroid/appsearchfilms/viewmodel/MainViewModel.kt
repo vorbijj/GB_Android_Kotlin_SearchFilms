@@ -30,6 +30,14 @@ class MainViewModel : ViewModel() {
     val comingSoonValidationErrorLiveData: LiveData<Boolean>
         get() = _comingSoonValidationErrorLiveData
 
+    private val _fantasyValidationErrorLiveData = MutableLiveData<Boolean>()
+    val fantasyValidationErrorLiveData: LiveData<Boolean>
+        get() = _fantasyValidationErrorLiveData
+
+    private val _dramaValidationErrorLiveData = MutableLiveData<Boolean>()
+    val dramaValidationErrorLiveData: LiveData<Boolean>
+        get() = _dramaValidationErrorLiveData
+
     private val _topListFilmsLiveData = MutableLiveData<CardsSource>()
     val topListFilmsLiveData: LiveData<CardsSource>
         get() = _topListFilmsLiveData
@@ -42,6 +50,13 @@ class MainViewModel : ViewModel() {
     val comingSoonListFilmsLiveData: LiveData<CardsSource>
         get() = _comingSoonListFilmsLiveData
 
+    private val _fantasyListFilmsLiveData = MutableLiveData<CardsSource>()
+    val fantasyListFilmsLiveData: LiveData<CardsSource>
+        get() = _fantasyListFilmsLiveData
+
+    private val _dramaListFilmsLiveData = MutableLiveData<CardsSource>()
+    val dramaListFilmsLiveData: LiveData<CardsSource>
+        get() = _dramaListFilmsLiveData
 
     private val theMovieDBRepoCase: TheMovieDBRepoCase by lazy { RetrofitFilmRepoCaseImpl() }
 
@@ -52,6 +67,8 @@ class MainViewModel : ViewModel() {
             ListFilmsKit.LIST_COMING_SOON -> _comingSoonListFilmsLiveData.value!!.getCardFilm(
                 position
             )
+            ListFilmsKit.LIST_FANTASY -> _fantasyListFilmsLiveData.value!!.getCardFilm(position)
+            ListFilmsKit.LIST_DRAMA -> _dramaListFilmsLiveData.value!!.getCardFilm(position)
         }
         _cardLiveData.postValue(currentCardFilm)
     }
@@ -100,10 +117,42 @@ class MainViewModel : ViewModel() {
             }
         )
     }
+
+    fun getFantasyListFilms() {
+        theMovieDBRepoCase.getGenreListFilmsAsync(
+            ListFilmsKit.LIST_FANTASY.value,
+            onSuccess = { listFilms ->
+                val films = CardsSourceImpl(listFilms)
+                _fantasyListFilmsLiveData.postValue(films)
+                _fantasyValidationErrorLiveData.postValue(false)
+            },
+            onError = { thr ->
+                _onErrorLiveData.postValue(thr.toString())
+                _fantasyValidationErrorLiveData.postValue(true)
+            }
+        )
+    }
+
+    fun getDramaListFilms() {
+        theMovieDBRepoCase.getGenreListFilmsAsync(
+            ListFilmsKit.LIST_DRAMA.value,
+            onSuccess = { listFilms ->
+                val films = CardsSourceImpl(listFilms)
+                _dramaListFilmsLiveData.postValue(films)
+                _dramaValidationErrorLiveData.postValue(false)
+            },
+            onError = { thr ->
+                _onErrorLiveData.postValue(thr.toString())
+                _dramaValidationErrorLiveData.postValue(true)
+            }
+        )
+    }
 }
 
 enum class ListFilmsKit(val value: String) {
     LIST_TOP("popular"),
     LIST_NEW("now_playing"),
-    LIST_COMING_SOON("upcoming")
+    LIST_COMING_SOON("upcoming"),
+    LIST_FANTASY("14"),
+    LIST_DRAMA("18")
 }

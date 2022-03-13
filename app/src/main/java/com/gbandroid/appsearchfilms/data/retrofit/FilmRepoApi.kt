@@ -24,4 +24,14 @@ interface FilmRepoApi {
         @Query("page") page: Int,
     ): Call<ListFilms>
 
+    @GET("3/discover/movie")
+    fun loadGenreFilms(
+        @Query("api_key") apiStr: String,
+        @Query("language") lang: String,
+        @Query("sort_by") sort: String,
+        @Query("include_adult") adult: Boolean,
+        @Query("page") page: Int,
+        @Query("with_genres") genre: String,
+    ): Call<ListFilms>
+
 }
