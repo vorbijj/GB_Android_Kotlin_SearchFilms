@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -12,6 +13,7 @@ import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.databinding.ActivityMainBinding
 import com.gbandroid.appsearchfilms.util.MyConnectReceiver
 import com.gbandroid.appsearchfilms.util.showSnackBar
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         title = getString(R.string.app_title)
         initToolbar()
+        initNavigation()
         registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -34,6 +37,14 @@ class MainActivity : AppCompatActivity() {
     private fun initToolbar() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+    }
+
+    private fun initNavigation() {
+        toolbar.setNavigationOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                supportFragmentManager.popBackStack()
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -1,18 +1,18 @@
 package com.gbandroid.appsearchfilms.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.gbandroid.appsearchfilms.R
 import com.gbandroid.appsearchfilms.databinding.FragmentDescriptionBinding
 import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoEntity
 import com.gbandroid.appsearchfilms.util.showSnackBar
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_description.*
 
 class DescriptionFragment : Fragment() {
@@ -34,9 +34,22 @@ class DescriptionFragment : Fragment() {
         _binding = FragmentDescriptionBinding.inflate(
             inflater, container, false
         )
+
+        setHasOptionsMenu(true)
+        requireActivity().toolbar.setNavigationIcon(
+            getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24, null)
+        )
+
         showProgress(true, false)
         initUi()
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.removeItem(R.id.action_search)
+        menu.removeItem(R.id.action_favorite)
+        menu.removeItem(R.id.action_sort)
     }
 
     private fun initUi() {

@@ -17,6 +17,7 @@ import com.gbandroid.appsearchfilms.util.MainMonitorIntentService
 import com.gbandroid.appsearchfilms.util.showSnackBar
 import com.gbandroid.appsearchfilms.viewmodel.ListFilmsKit
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,6 +45,8 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(
             inflater, container, false
         )
+
+        requireActivity().toolbar.setNavigationIcon(null)
 
         initRecyclerView(binding.topRecyclerViewLine)
         initRecyclerView(binding.newRecyclerViewLine)
