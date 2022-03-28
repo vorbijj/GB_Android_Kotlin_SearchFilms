@@ -1,7 +1,10 @@
 package com.gbandroid.appsearchfilms.ui
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -45,11 +48,12 @@ class DescriptionFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.action_search)
         menu.removeItem(R.id.action_favorite)
         menu.removeItem(R.id.action_sort)
+        menu.removeItem(R.id.action_setting)
     }
 
     private fun initUi() {

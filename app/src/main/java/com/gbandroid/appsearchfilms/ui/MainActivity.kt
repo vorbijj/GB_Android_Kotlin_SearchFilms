@@ -14,16 +14,21 @@ import com.gbandroid.appsearchfilms.databinding.ActivityMainBinding
 import com.gbandroid.appsearchfilms.util.MyConnectReceiver
 import com.gbandroid.appsearchfilms.util.showSnackBar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.properties.Delegates
+
+private const val APP_SETTING = "APP_SETTING"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val receiver = MyConnectReceiver()
+    private var isChecked by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = getString(R.string.app_title)
+        getSettings()
         initToolbar()
         initNavigation()
         registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
@@ -57,6 +62,12 @@ class MainActivity : AppCompatActivity() {
                 binding.root.showSnackBar(getString(R.string.favorite))
                 true
             }
+            R.id.action_setting -> {
+                isChecked = !item.isChecked
+                item.setChecked(isChecked)
+                saveSettings(isChecked)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -64,6 +75,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         val search = menu!!.findItem(R.id.action_search)
+        val settingFilter = menu.findItem(R.id.action_setting)
 
         val searchText = search.actionView as SearchView
         searchText.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -76,7 +88,22 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+        settingFilter.setChecked(isChecked)
+
         return true
+    }
+
+    private fun saveSettings(value: Boolean) {
+        getPreferences(MODE_PRIVATE)
+            .edit()
+            .putBoolean(APP_SETTING, value)
+            .apply()
+    }
+
+    private fun getSettings() {
+        isChecked = getPreferences(MODE_PRIVATE)
+            .getBoolean(APP_SETTING, false)
     }
 
     override fun onDestroy() {
