@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -20,6 +21,7 @@ import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 private const val BRACKET_LEFT = "("
 private const val BRACKET_RIGHT = ")"
@@ -30,6 +32,8 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
     }
+
+    private var adultPreferences by Delegates.notNull<Boolean>()
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -48,6 +52,10 @@ class MainFragment : Fragment() {
 
         requireActivity().toolbar.setNavigationIcon(null)
 
+        adultPreferences = requireActivity()
+            .getSharedPreferences(SHARED_PREF_NAME, AppCompatActivity.MODE_PRIVATE)
+            .getBoolean(APP_SETTING, false)
+
         initRecyclerView(binding.topRecyclerViewLine)
         initRecyclerView(binding.newRecyclerViewLine)
         initRecyclerView(binding.comingSoonRecyclerViewLine)
@@ -57,6 +65,10 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.root.showSnackBar(resources.getString(R.string.adult) + " - " + adultPreferences.toString())
+    }
 
     private fun initRecyclerView(recyclerView: RecyclerView) {
         recyclerView.setHasFixedSize(true)
@@ -67,7 +79,7 @@ class MainFragment : Fragment() {
 
         when (recyclerView) {
             binding.topRecyclerViewLine -> {
-                viewModel.getTopListFilms()
+                viewModel.getTopListFilms(adultPreferences)
 
                 viewModel.topValidationErrorLiveData.observe(viewLifecycleOwner) {
                     if (it) {
@@ -91,7 +103,7 @@ class MainFragment : Fragment() {
             }
 
             binding.newRecyclerViewLine -> {
-                viewModel.getNewListFilms()
+                viewModel.getNewListFilms(adultPreferences)
 
                 viewModel.newValidationErrorLiveData.observe(viewLifecycleOwner) {
                     if (it) {
@@ -115,7 +127,7 @@ class MainFragment : Fragment() {
             }
 
             binding.comingSoonRecyclerViewLine -> {
-                viewModel.getComingSoonListFilms()
+                viewModel.getComingSoonListFilms(adultPreferences)
 
                 viewModel.comingSoonValidationErrorLiveData.observe(viewLifecycleOwner) {
                     if (it) {
@@ -140,7 +152,7 @@ class MainFragment : Fragment() {
             }
 
             binding.fantasyRecyclerViewLine -> {
-                viewModel.getFantasyListFilms()
+                viewModel.getFantasyListFilms(adultPreferences)
 
                 viewModel.fantasyValidationErrorLiveData.observe(viewLifecycleOwner) {
                     if (it) {
@@ -165,7 +177,7 @@ class MainFragment : Fragment() {
             }
 
             binding.dramaRecyclerViewLine -> {
-                viewModel.getDramaListFilms()
+                viewModel.getDramaListFilms(adultPreferences)
 
                 viewModel.dramaValidationErrorLiveData.observe(viewLifecycleOwner) {
                     if (it) {

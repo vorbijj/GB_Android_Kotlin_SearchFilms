@@ -16,7 +16,6 @@ private const val API_STR = BuildConfig.FILM_API_KEY
 private const val LANG_SELECTION = "ru"
 private const val NUMBER_PAGES = 1
 private const val SORT_BY = "popularity.desc"
-private const val ADULT = false
 
 class RetrofitFilmRepoCaseImpl : TheMovieDBRepoCase {
 
@@ -53,10 +52,11 @@ class RetrofitFilmRepoCaseImpl : TheMovieDBRepoCase {
 
     override fun getListFilmsAsync(
         nameFilmsKit: String,
+        adultPref: Boolean,
         onSuccess: (ListFilms) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        api.loadListFilms(nameFilmsKit, API_STR, LANG_SELECTION, NUMBER_PAGES)
+        api.loadListFilms(nameFilmsKit, API_STR, LANG_SELECTION, NUMBER_PAGES, adultPref)
             .enqueue(object : Callback<ListFilms> {
                 override fun onResponse(
                     call: Call<ListFilms>,
@@ -77,10 +77,11 @@ class RetrofitFilmRepoCaseImpl : TheMovieDBRepoCase {
 
     override fun getGenreListFilmsAsync(
         genre: String,
+        adultPref: Boolean,
         onSuccess: (ListFilms) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        api.loadGenreFilms(API_STR, LANG_SELECTION, SORT_BY, ADULT, NUMBER_PAGES, genre)
+        api.loadGenreFilms(API_STR, LANG_SELECTION, SORT_BY, adultPref, NUMBER_PAGES, genre)
             .enqueue(object : Callback<ListFilms> {
                 override fun onResponse(
                     call: Call<ListFilms>,

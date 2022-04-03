@@ -9,12 +9,14 @@ interface TheMovieDBRepoCase {
 
     fun getListFilmsAsync(
         nameFilmsKit: String,
+        adultPref: Boolean,
         onSuccess: (ListFilms) -> Unit,
         onError: (Throwable) -> Unit
     )
 
     fun getGenreListFilmsAsync(
         genre: String,
+        adultPref: Boolean,
         onSuccess: (ListFilms) -> Unit,
         onError: (Throwable) -> Unit
     )

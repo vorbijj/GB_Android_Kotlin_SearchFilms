@@ -13,7 +13,7 @@ interface FilmRepoApi {
     fun loadReposByFilm(
         @Path("id") filmId: Long,
         @Query("api_key") apiStr: String,
-        @Query("language") lang: String,
+        @Query("language") lang: String
     ): Call<TheMovieDBRepoEntity>
 
     @GET("3/movie/{list_name}")
@@ -22,6 +22,7 @@ interface FilmRepoApi {
         @Query("api_key") apiStr: String,
         @Query("language") lang: String,
         @Query("page") page: Int,
+        @Query("include_adult") adult: Boolean
     ): Call<ListFilms>
 
     @GET("3/discover/movie")
@@ -31,7 +32,7 @@ interface FilmRepoApi {
         @Query("sort_by") sort: String,
         @Query("include_adult") adult: Boolean,
         @Query("page") page: Int,
-        @Query("with_genres") genre: String,
+        @Query("with_genres") genre: String
     ): Call<ListFilms>
 
 }

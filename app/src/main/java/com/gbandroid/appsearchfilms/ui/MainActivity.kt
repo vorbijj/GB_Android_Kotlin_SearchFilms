@@ -16,7 +16,8 @@ import com.gbandroid.appsearchfilms.util.showSnackBar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 
-private const val APP_SETTING = "APP_SETTING"
+const val SHARED_PREF_NAME = "SHARED_PREF_NAME"
+const val APP_SETTING = "APP_SETTING"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = getString(R.string.app_title)
-        getSettings()
+        isChecked = getSettings()
         initToolbar()
         initNavigation()
         registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
@@ -95,16 +96,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveSettings(value: Boolean) {
-        getPreferences(MODE_PRIVATE)
+        getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE)
             .edit()
             .putBoolean(APP_SETTING, value)
             .apply()
     }
 
-    private fun getSettings() {
-        isChecked = getPreferences(MODE_PRIVATE)
-            .getBoolean(APP_SETTING, false)
-    }
+    private fun getSettings() = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE)
+        .getBoolean(APP_SETTING, false)
 
     override fun onDestroy() {
         unregisterReceiver(receiver)

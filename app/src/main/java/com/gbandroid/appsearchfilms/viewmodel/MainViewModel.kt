@@ -73,9 +73,10 @@ class MainViewModel : ViewModel() {
         _cardLiveData.postValue(currentCardFilm)
     }
 
-    fun getTopListFilms() {
+    fun getTopListFilms(preference: Boolean) {
         theMovieDBRepoCase.getListFilmsAsync(
             ListFilmsKit.LIST_TOP.value,
+            preference,
             onSuccess = { listFilms ->
                 val films = CardsSourceImpl(listFilms)
                 _topListFilmsLiveData.postValue(films.sortListTop())
@@ -88,9 +89,10 @@ class MainViewModel : ViewModel() {
         )
     }
 
-    fun getNewListFilms() {
+    fun getNewListFilms(preference: Boolean) {
         theMovieDBRepoCase.getListFilmsAsync(
             ListFilmsKit.LIST_NEW.value,
+            preference,
             onSuccess = { listFilms ->
                 val films = CardsSourceImpl(listFilms)
                 _newListFilmsLiveData.postValue(films)
@@ -103,9 +105,10 @@ class MainViewModel : ViewModel() {
         )
     }
 
-    fun getComingSoonListFilms() {
+    fun getComingSoonListFilms(preference: Boolean) {
         theMovieDBRepoCase.getListFilmsAsync(
             ListFilmsKit.LIST_COMING_SOON.value,
+            preference,
             onSuccess = { listFilms ->
                 val films = CardsSourceImpl(listFilms)
                 _comingSoonListFilmsLiveData.postValue(films.sortListComingSoon())
@@ -118,9 +121,10 @@ class MainViewModel : ViewModel() {
         )
     }
 
-    fun getFantasyListFilms() {
+    fun getFantasyListFilms(preference: Boolean) {
         theMovieDBRepoCase.getGenreListFilmsAsync(
             ListFilmsKit.LIST_FANTASY.value,
+            preference,
             onSuccess = { listFilms ->
                 val films = CardsSourceImpl(listFilms)
                 _fantasyListFilmsLiveData.postValue(films)
@@ -133,9 +137,10 @@ class MainViewModel : ViewModel() {
         )
     }
 
-    fun getDramaListFilms() {
+    fun getDramaListFilms(preference: Boolean) {
         theMovieDBRepoCase.getGenreListFilmsAsync(
             ListFilmsKit.LIST_DRAMA.value,
+            preference,
             onSuccess = { listFilms ->
                 val films = CardsSourceImpl(listFilms)
                 _dramaListFilmsLiveData.postValue(films)
