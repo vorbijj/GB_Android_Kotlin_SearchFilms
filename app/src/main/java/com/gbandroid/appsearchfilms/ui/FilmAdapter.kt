@@ -6,13 +6,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.gbandroid.appsearchfilms.R
-import com.gbandroid.appsearchfilms.domain.CardFilm
 import com.gbandroid.appsearchfilms.domain.CardsSource
+import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoEntity
 
 class FilmAdapter(private val dataSource: CardsSource) :
     RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
     private var itemClickListener: OnItemClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item, parent, false)
@@ -39,11 +41,11 @@ class FilmAdapter(private val dataSource: CardsSource) :
         private val year: TextView
         private val rating: TextView
 
-        fun setData(cardFilm: CardFilm) {
-            image.setImageResource(R.drawable.ic_baseline_camera_75)
-            name.text = cardFilm.name
-            year.text = cardFilm.year
-            rating.text = cardFilm.rating
+        fun setData(cardFilm: TheMovieDBRepoEntity) {
+            setImageOnView(cardFilm.getImageUrl())
+            name.text = cardFilm.title
+            year.text = cardFilm.getYear()
+            rating.text = cardFilm.voteAverage.toString()
         }
 
         init {
@@ -56,6 +58,12 @@ class FilmAdapter(private val dataSource: CardsSource) :
                     itemClickListener!!.onItemClick(v, adapterPosition)
                 }
             }
+        }
+
+        private fun setImageOnView(imageUrl: String) {
+            Glide.with(itemView)
+                .load(imageUrl)
+                .into(image)
         }
     }
 }

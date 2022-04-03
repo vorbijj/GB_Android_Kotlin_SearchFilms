@@ -24,4 +24,11 @@
         android:title="@string/sort"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_setting"
+        android:checkable="true"
+        android:orderInCategory="70"
+        android:title="@string/adult"
+        app:showAsAction="never" />
+
 </menu>
