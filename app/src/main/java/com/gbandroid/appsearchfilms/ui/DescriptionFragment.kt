@@ -16,7 +16,6 @@ import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoEntity
 import com.gbandroid.appsearchfilms.util.showSnackBar
 import com.gbandroid.appsearchfilms.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_description.*
 
 class DescriptionFragment : Fragment() {
     companion object {
@@ -50,10 +49,7 @@ class DescriptionFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        menu.removeItem(R.id.action_search)
-        menu.removeItem(R.id.action_favorite)
-        menu.removeItem(R.id.action_sort)
-        menu.removeItem(R.id.action_setting)
+        menu.setGroupVisible(R.id.group_menu, false)
     }
 
     private fun initUi() {
@@ -61,10 +57,10 @@ class DescriptionFragment : Fragment() {
             val cardFilmEntity = viewModel.cardLiveData.value!!
 
             setImageOnView(cardFilmEntity.getImageUrl())
-            name_description_text_view.text = cardFilmEntity.title
-            year_description_text_view.text = cardFilmEntity.getYear()
-            rating_description_text_view.text = cardFilmEntity.voteAverage.toString()
-            desc_description_text_view.text = cardFilmEntity.overview
+            binding.nameDescriptionTextView.text = cardFilmEntity.title
+            binding.yearDescriptionTextView.text = cardFilmEntity.getYear()
+            binding.ratingDescriptionTextView.text = cardFilmEntity.voteAverage.toString()
+            binding.descDescriptionTextView.text = cardFilmEntity.overview
 
             showProgress(false, true)
 

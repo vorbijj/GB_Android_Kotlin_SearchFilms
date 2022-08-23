@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.SearchFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".ui.MainFragment">
+
+        <TextView
+            android:id="@+id/title_search_text_view"
+            style="@style/title_style"
+            android:text="@string/title_search" />
+
+        <TextView
+            android:id="@+id/quantity_search_text_view"
+            style="@style/title_style"
+            android:text="@string/quantity" />
+
+        <TextView
+            style="@style/title_style"
+            android:text="@string/interval_text" />
+
+        <TextView
+            android:id="@+id/test_text"
+            style="@style/title_style"
+            android:text="@string/hello_blank_fragment" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recycler_view_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item" />
+
+</LinearLayout>

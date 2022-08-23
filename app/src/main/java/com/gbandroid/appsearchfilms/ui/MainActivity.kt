@@ -1,11 +1,13 @@
 package com.gbandroid.appsearchfilms.ui
 
+import android.content.Context
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -55,10 +57,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_sort -> {
-                binding.root.showSnackBar(getString(R.string.sort))
-                true
-            }
             R.id.action_favorite -> {
                 binding.root.showSnackBar(getString(R.string.favorite))
                 true
@@ -81,7 +79,15 @@ class MainActivity : AppCompatActivity() {
         val searchText = search.actionView as SearchView
         searchText.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                binding.root.showSnackBar(query)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, SearchFragment.newInstance(query, isChecked))
+                    .addToBackStack(null)
+                    .commit()
+
+                val imm: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.root.getWindowToken(), 0)
+
                 return true
             }
 
