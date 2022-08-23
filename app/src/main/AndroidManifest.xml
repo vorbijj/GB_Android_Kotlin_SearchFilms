@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GB_Android_Kotlin_SearchFilms.NoActionBar">
+        android:theme="@style/Theme_GB_Android_Kotlin_SearchFilms.NoActionBar">
         <service
             android:name=".util.MainMonitorIntentService"
             android:exported="false"/>

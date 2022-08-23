@@ -20,7 +20,20 @@ data class TheMovieDBRepoEntity(
     @SerializedName("poster_path")
     val posterPath: String
 ) {
-    fun getYear() = this.releaseDate.substring(0..3)
+    fun getYear(): String {
+        return if (releaseDate == "") {
+            "n/a"
+        } else {
+            this.releaseDate.substring(0..3)
+        }
+    }
 
     fun getImageUrl() = IMAGE_URL + this.posterPath
+}
+
+data class ListFilms(
+    @SerializedName("results")
+    val results: ArrayList<TheMovieDBRepoEntity>
+) {
+    fun size() = results.size
 }

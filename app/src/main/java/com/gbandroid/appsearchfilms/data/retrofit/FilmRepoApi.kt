@@ -1,5 +1,6 @@
 package com.gbandroid.appsearchfilms.data.retrofit
 
+import com.gbandroid.appsearchfilms.domain.ListFilms
 import com.gbandroid.appsearchfilms.domain.TheMovieDBRepoEntity
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,6 +13,26 @@ interface FilmRepoApi {
     fun loadReposByFilm(
         @Path("id") filmId: Long,
         @Query("api_key") apiStr: String,
+        @Query("language") lang: String
+    ): Call<TheMovieDBRepoEntity>
+
+    @GET("3/movie/{list_name}")
+    fun loadListFilms(
+        @Path("list_name") listName: String,
+        @Query("api_key") apiStr: String,
         @Query("language") lang: String,
-        ): Call<TheMovieDBRepoEntity>
+        @Query("page") page: Int,
+        @Query("include_adult") adult: Boolean
+    ): Call<ListFilms>
+
+    @GET("3/discover/movie")
+    fun loadGenreFilms(
+        @Query("api_key") apiStr: String,
+        @Query("language") lang: String,
+        @Query("sort_by") sort: String,
+        @Query("include_adult") adult: Boolean,
+        @Query("page") page: Int,
+        @Query("with_genres") genre: String
+    ): Call<ListFilms>
+
 }
